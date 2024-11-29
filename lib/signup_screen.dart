@@ -229,10 +229,12 @@ class _SignupScreenState extends State<SignupScreen> {
       // User successfully created
       print('User signed up successfully: ${userCredential.user?.email}');
 
-      // Navigate to HomePage after successful signup
+      // Navigate to HomePage after successful signup with the user type passed
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(
+          builder: (context) => HomePage(userType: _selectedUserType),
+        ),
       );
     } on FirebaseAuthException catch (e) {
       _showErrorDialog(e.message ?? 'An error occurred');

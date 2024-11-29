@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'home_page.dart'; // Assuming HomePage is in home_page.dart
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -170,7 +171,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               password: _passwordController.text,
                             );
                             // Navigate to home page after successful login
-                            Navigator.pushReplacementNamed(context, '/home');
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                  userType:
+                                      _selectedUserType, // Pass the selected userType here
+                                ),
+                              ),
+                            );
                           } on FirebaseAuthException catch (e) {
                             // Handle any errors that occur during login
                             showDialog(
