@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "919322684477",
+    "project_id": "swadeshi-bazar-658f0",
+    "storage_bucket": "swadeshi-bazar-658f0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919322684477:android:a5cbd35e71b5f2aa860e54",
+        "android_client_info": {
+          "package_name": "com.example.swadeshi_bazar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoUEYwGYw1NcE82defvWGTKAHk80VQUu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
