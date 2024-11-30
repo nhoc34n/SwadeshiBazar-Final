@@ -5,6 +5,7 @@ import 'package:swadeshi_bazar/welcome_screen.dart';
 import 'package:swadeshi_bazar/login_screen.dart';
 import 'package:swadeshi_bazar/signup_screen.dart';
 import 'package:swadeshi_bazar/home_page.dart';
+import 'package:swadeshi_bazar/account_page.dart'; // Import AccountPage
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/welcome': (context) => const WelcomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
+        '/account': (context) => const AccountPage(), // Add AccountPage route
       },
     );
   }

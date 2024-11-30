@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swadeshi_bazar/account_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -224,18 +225,32 @@ class _HomePageState extends State<HomePage> {
             // Sell Grid Layout
             if (isSellSelected)
               Padding(
-                padding: const EdgeInsets.all(16),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                padding: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    categoryCard('Seed', 'assets/seed.png'),
-                    categoryCard('Crops', 'assets/wheat.png'),
-                    categoryCard('Livestock', 'assets/livestock.png'),
-                    categoryCard('Vegetables', 'assets/vegetable.png'),
-                    categoryCard('Homemade', 'assets/hmade.png'),
+                    const Text(
+                      'Add Items:', // The text you want to display
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF199B33),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 20,
+                      children: [
+                        categoryCard('Seed', 'assets/seed.png'),
+                        categoryCard('Crops', 'assets/wheat.png'),
+                        categoryCard('Livestock', 'assets/livestock.png'),
+                        categoryCard('Vegetables', 'assets/vegetable.png'),
+                        categoryCard('Homemade', 'assets/hmade.png'),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -266,7 +281,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         onTap: (index) {
-          // Handle bottom navigation actions
+          if (index == 3) {
+            // Navigate to AccountPage when Account tab is tapped
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AccountPage()),
+            );
+          }
         },
       ),
     );
