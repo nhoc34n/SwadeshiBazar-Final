@@ -14,6 +14,7 @@ class _AccountPageState extends State<AccountPage> {
   final DatabaseReference _dbRef = FirebaseDatabase.instance.ref();
   String? _displayName;
   String? _phoneNumber;
+  String? _profileImageUrl;
 
   @override
   void initState() {
@@ -28,18 +29,23 @@ class _AccountPageState extends State<AccountPage> {
       setState(() {
         _displayName = user.displayName;
         _phoneNumber = user.phoneNumber;
+        _profileImageUrl =
+            user.photoURL; // Get profile image URL from Firebase Authentication
       });
 
       // Fetch name from Firebase Realtime Database if displayName is not set
       if (_displayName == null) {
-        _dbRef.child('users/${user.uid}').get().then((snapshot) {
+        try {
+          final snapshot = await _dbRef.child('users/${user.uid}').get();
           if (snapshot.exists) {
             var userData = snapshot.value as Map<dynamic, dynamic>;
             setState(() {
               _displayName = userData['name'] ?? "No Name";
             });
           }
-        });
+        } catch (e) {
+          print("Error loading user data: $e");
+        }
       }
     }
   }
@@ -68,6 +74,17 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  // Display profile picture (if available)
+                  _profileImageUrl != null
+                      ? CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(_profileImageUrl!),
+                        )
+                      : const CircleAvatar(
+                          radius: 50,
+                          child: Icon(Icons.person, size: 50),
+                        ),
+                  const SizedBox(height: 20),
                   // Display name
                   Text(
                     'Name: ${_displayName ?? "Not set"}',
@@ -81,7 +98,10 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                   const SizedBox(height: 10),
                   // Phone number
-
+                  Text(
+                    'Phone: ${_phoneNumber ?? "Not set"}',
+                    style: const TextStyle(fontSize: 18),
+                  ),
                   const SizedBox(height: 20),
                   // Button to logout
                   Center(
@@ -91,8 +111,7 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.pushReplacementNamed(context, '/login');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFF199B33), // Updated property name
+                        backgroundColor: const Color(0xFF199B33),
                       ),
                       child: const Text("Logout"),
                     ),

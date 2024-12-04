@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:swadeshi_bazar/SeedItemListPage.dart'; // Import the SeedItemListPage
 import 'package:swadeshi_bazar/account_page.dart';
+import 'package:swadeshi_bazar/CropsItemListPage.dart';
+import 'package:swadeshi_bazar/LivestockItemListPage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,19 +33,16 @@ class _HomePageState extends State<HomePage> {
   bool isBuySelected = false;
   bool isSellSelected = false;
 
-  // Dynamically set userType based on login
   late String userType;
 
   @override
   void initState() {
     super.initState();
-    userType = widget.userType; // Assign passed userType
+    userType = widget.userType;
   }
 
   @override
   Widget build(BuildContext context) {
-    print("User type is: $userType"); // Debugging: Check the value of userType
-
     return Scaffold(
       backgroundColor: const Color(0xFFF3F5F9),
       body: SingleChildScrollView(
@@ -93,12 +93,10 @@ class _HomePageState extends State<HomePage> {
                         isBuySelected = true;
                         isSellSelected = false;
                       });
-                      // Show SnackBar for Buy mode
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: const Text("Buy mode enabled"),
-                          duration:
-                              const Duration(milliseconds: 500), // 0.5 seconds
+                          duration: const Duration(milliseconds: 500),
                         ),
                       );
                     },
@@ -108,7 +106,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Only show the "Sell Product" button for Farmer
                   if (userType == "Farmer")
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -122,27 +119,21 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         if (userType == "Farmer") {
                           setState(() {
-                            // Show Sell Grid and hide Buy Grid
                             isSellSelected = true;
                             isBuySelected = false;
                           });
-
-                          // Show a SnackBar for success
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: const Text("Sell mode enabled"),
-                              duration: const Duration(
-                                  milliseconds: 500), // 0.5 seconds
+                              duration: const Duration(milliseconds: 500),
                             ),
                           );
                         } else {
                           setState(() {
-                            // Prevent showing Sell Grid and keep Buy Grid visible
                             isSellSelected = false;
                             isBuySelected = true;
                           });
 
-                          // Show a SnackBar for error
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content:
@@ -155,7 +146,6 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(color: Color(0xFF00B341)),
                       ),
                     ),
-                  // Show message for Consumer if they try to press "Sell Product"
                   if (userType == "Consumer")
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -163,7 +153,6 @@ class _HomePageState extends State<HomePage> {
                         foregroundColor: Colors.black,
                       ),
                       onPressed: () {
-                        // Show message to consumers that only farmers can sell products
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("Only farmers can add items to sell"),
@@ -180,11 +169,10 @@ class _HomePageState extends State<HomePage> {
             ),
             // Banner Section
             Image.asset(
-              'assets/add.png', // Replace with your banner image asset
+              'assets/add.png',
               width: MediaQuery.of(context).size.width,
               height: 100,
-              fit: BoxFit
-                  .cover, // This ensures the image covers the width of the screen
+              fit: BoxFit.cover,
             ),
             // Search Bar
             Padding(
@@ -230,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Add Items:', // The text you want to display
+                      'Add Items:',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -293,32 +281,51 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Category Card Widget
   Widget categoryCard(String title, String asset) {
     return GestureDetector(
       onTap: () {
-        // Handle category selection
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Selected: $title")),
-        );
+        if (isBuySelected && title == 'Seed') {
+          // Navigate to SeedItemListPage when 'Seed' category is tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SeedItemListPage()),
+          );
+        } else if (isBuySelected && title == 'Crops') {
+          // Navigate to CropsItemListPage when 'Crops' category is tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CropsItemListPage()),
+          );
+        } else if (!isBuySelected) {
+          // If 'Sell Product' mode is selected, show a SnackBar or do something else
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text("You can only view products in Buy mode")),
+          );
+        } else if (isBuySelected && title == 'Livestock') {
+          // Navigate to LivestockItemListPage when 'Livestock' category is tapped
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const LivestockItemListPage()),
+          );
+        } else {
+          // For other categories, show a SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Selected: $title")),
+          );
+        }
       },
       child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              asset,
-              width: 90,
-              height: 90,
-            ),
+            Image.asset(asset, width: 50, height: 50),
             Text(
               title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xFF6D6D6D),
-                fontSize: 14,
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ],
         ),

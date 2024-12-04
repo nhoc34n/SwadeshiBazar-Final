@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth
 import 'package:swadeshi_bazar/splash_screen.dart';
 import 'package:swadeshi_bazar/welcome_screen.dart';
 import 'package:swadeshi_bazar/login_screen.dart';
 import 'package:swadeshi_bazar/signup_screen.dart';
-import 'package:swadeshi_bazar/home_page.dart';
 import 'package:swadeshi_bazar/account_page.dart'; // Import AccountPage
 
 void main() async {
@@ -37,6 +37,28 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/account': (context) => const AccountPage(), // Add AccountPage route
+      },
+    );
+  }
+}
+
+class AuthChecker extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Listen to authentication state changes
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        // If the connection is active and user data is available, navigate to home page
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return const AccountPage(); // User is logged in, show AccountPage
+          } else {
+            return const WelcomeScreen(); // No user logged in, show WelcomeScreen
+          }
+        }
+        // If authentication state is not active, show loading spinner
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
