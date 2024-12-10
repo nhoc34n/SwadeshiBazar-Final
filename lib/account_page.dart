@@ -73,20 +73,20 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Display profile picture (if available)
-                  _profileImageUrl != null
-                      ? CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(_profileImageUrl!),
-                        )
-                      : const CircleAvatar(
-                          radius: 50,
-                          child: Icon(Icons.person, size: 50),
-                        ),
-                  const SizedBox(height: 20),
+// Display profile picture (if available, show asset image; otherwise, show a default icon)
+                  CircleAvatar(
+                    radius: 90,
+                    backgroundImage: _profileImageUrl != null
+                        ? AssetImage(
+                            "assets/naruto.jpg") // Always display image from assets if _profileImageUrl is available
+                        : const AssetImage(
+                            "assets/naruto.jpg"), // Fallback to the same asset image if _profileImageUrl is null
+                  ),
+                  const SizedBox(height: 10),
+
                   // Display name
                   Text(
-                    'Name: ${_displayName ?? "Not set"}',
+                    'Name: ${_displayName ?? "Nahian"}',
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 10),
@@ -98,7 +98,7 @@ class _AccountPageState extends State<AccountPage> {
                   const SizedBox(height: 10),
                   // Phone number
                   Text(
-                    'Phone: ${_phoneNumber ?? "Not set"}',
+                    'Phone: ${_phoneNumber ?? "01521581789"}',
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
