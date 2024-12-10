@@ -14,11 +14,11 @@ class _PaymentPageState extends State<PaymentPage> {
   final List<Map<String, dynamic>> paymentMethods = [
     {'name': 'bKash', 'image': 'assets/bkash.png'},
     {'name': 'Nagad', 'image': 'assets/nagad.png'},
-    {'name': 'Cash On Delivery', 'image': 'assets/cod.png'},
     {'name': 'Upay', 'image': 'assets/upay.png'},
+    {'name': 'Cash On Delivery', 'image': 'assets/cod.png'},
   ];
 
-  String selectedPaymentMethod = 'bKash'; // Default payment method
+  String selectedPaymentMethod = 'Cash On Delivery'; // Default payment method
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class _PaymentPageState extends State<PaymentPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
+                const Center(
                   child: Text(
                     'Amount to Pay',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -91,7 +91,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 Center(
                   child: Text(
                     '৳${widget.totalPrice}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,

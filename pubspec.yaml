@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   firebase_core: ^3.8.0  # Use the latest compatible version
   firebase_auth: ^5.3.3  # Use the latest compatible version
-  cloud_firestore: ^5.5.0
+  cloud_firestore: ^5.5.1
   firebase_database: ^11.1.6
   random_string: ^2.3.1
   fluttertoast: ^8.2.8

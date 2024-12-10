@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'PaymentPage.dart'; // Import your PaymentPage
 
 class CropsItemListPage extends StatefulWidget {
   const CropsItemListPage({super.key});
@@ -122,37 +123,47 @@ class CartPage extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(
-                itemCount: cartItems.length,
-                itemBuilder: (context, index) {
-                  var item = cartItems[index];
-                  return ListTile(
-                    leading: Image.asset(
-                      item['image'],
-                      width: 40,
-                      height: 40,
-                    ),
-                    title: Text(item['name']),
-                    subtitle:
-                        Text('৳${item['price']}'), // Changed currency symbol
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        onRemoveItem(index); // Call the remove callback
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  '${item['name']} removed from the cart')),
+              child: cartItems.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Your cart is empty.',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: cartItems.length,
+                      itemBuilder: (context, index) {
+                        var item = cartItems[index];
+                        return ListTile(
+                          leading: Image.asset(
+                            item['image'],
+                            width: 40,
+                            height: 40,
+                          ),
+                          title: Text(item['name']),
+                          subtitle: Text('৳${item['price']}'),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              onRemoveItem(index); // Immediately remove item
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      '${item['name']} removed from the cart'),
+                                  duration: const Duration(
+                                      milliseconds:
+                                          200), // Set the duration of the SnackBar
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
-                  );
-                },
-              ),
             ),
             const SizedBox(height: 20),
             Text(
-              'Total: ৳$totalAmount', // Changed currency symbol
+              'Total: ৳$totalAmount',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -161,12 +172,26 @@ class CartPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                // Checkout or proceed to payment page
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Proceeding to checkout')),
-                );
-              },
+              onPressed: cartItems.isNotEmpty
+                  ? () {
+                      // Navigate to PaymentPage if cart is not empty
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentPage(totalPrice: totalAmount),
+                        ),
+                      );
+                    }
+                  : () {
+                      // Show message if cart is empty
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please Select one item'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),

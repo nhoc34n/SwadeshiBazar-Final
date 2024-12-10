@@ -150,7 +150,9 @@ class CartPage extends StatelessWidget {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                     content: Text(
-                                        '${item['name']} removed from the cart')),
+                                        '${item['name']} removed from the cart'),
+                                    duration:
+                                        const Duration(milliseconds: 200)),
                               );
                             },
                           ),

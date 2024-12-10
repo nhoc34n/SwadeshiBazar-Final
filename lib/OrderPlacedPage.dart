@@ -42,22 +42,6 @@ class OrderPlacedPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to My Orders page or perform the desired action
-                Navigator.pop(
-                    context); // Example: Pop back to the previous page
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00B341),
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                minimumSize: const Size(double.infinity, 50),
-              ),
-              child: const Text(
-                'Go to Home',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
           ],
         ),
       ),
