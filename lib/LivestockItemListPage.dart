@@ -71,9 +71,9 @@ class LivestockItemCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
+            const Text(
               '₹1500', // Replace with dynamic pricing
-              style: const TextStyle(
+              style: TextStyle(
                 color: Color(0xFF00B341),
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

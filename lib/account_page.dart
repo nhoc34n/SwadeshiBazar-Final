@@ -29,8 +29,7 @@ class _AccountPageState extends State<AccountPage> {
       setState(() {
         _displayName = user.displayName;
         _phoneNumber = user.phoneNumber;
-        _profileImageUrl =
-            user.photoURL; // Get profile image URL from Firebase Authentication
+        _profileImageUrl = user.photoURL; // Get profile image URL
       });
 
       // Fetch name from Firebase Realtime Database if displayName is not set
@@ -103,7 +102,28 @@ class _AccountPageState extends State<AccountPage> {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  // Button to logout
+                  // My Orders button
+                  ListTile(
+                    leading:
+                        const Icon(Icons.shopping_bag, color: Colors.green),
+                    title: const Text(
+                      'My Orders',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      // Navigate to MyOrdersPage
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyOrdersPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 20),
+                  // Logout button
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
@@ -118,6 +138,27 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ],
               ),
+      ),
+    );
+  }
+}
+
+// Dummy MyOrdersPage
+class MyOrdersPage extends StatelessWidget {
+  const MyOrdersPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Orders'),
+        backgroundColor: const Color(0xFF199B33),
+      ),
+      body: const Center(
+        child: Text(
+          'Your orders will appear here.',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     );
   }

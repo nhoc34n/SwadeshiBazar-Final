@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// Import your HomePage or main page
+// Import your LoginPage
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

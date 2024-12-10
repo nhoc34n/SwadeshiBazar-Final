@@ -54,8 +54,8 @@ class _HomePageState extends State<HomePage> {
               color: const Color(0xFF00B341),
               child: Row(
                 children: [
-                  Expanded(
-                    child: const Text(
+                  const Expanded(
+                    child: Text(
                       "Swadeshi Bazar",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -94,9 +94,9 @@ class _HomePageState extends State<HomePage> {
                         isSellSelected = false;
                       });
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text("Buy mode enabled"),
-                          duration: const Duration(milliseconds: 500),
+                        const SnackBar(
+                          content: Text("Buy mode enabled"),
+                          duration: Duration(milliseconds: 500),
                         ),
                       );
                     },
@@ -123,9 +123,9 @@ class _HomePageState extends State<HomePage> {
                             isBuySelected = false;
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text("Sell mode enabled"),
-                              duration: const Duration(milliseconds: 500),
+                            const SnackBar(
+                              content: Text("Sell mode enabled"),
+                              duration: Duration(milliseconds: 500),
                             ),
                           );
                         } else {
@@ -249,22 +249,21 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: 0,
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home, color: Color(0xFF00B341)),
+            icon: Icon(Icons.home, color: Color(0xFF00B341)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.shopping_cart, color: Color(0xFF00B341)),
+            icon: Icon(Icons.shopping_cart, color: Color(0xFF00B341)),
             label: 'Buy/Sell',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.account_balance_wallet,
-                color: Color(0xFF00B341)),
+            icon: Icon(Icons.account_balance_wallet, color: Color(0xFF00B341)),
             label: 'News',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.account_circle, color: Color(0xFF00B341)),
+            icon: Icon(Icons.account_circle, color: Color(0xFF00B341)),
             label: 'Account',
           ),
         ],
